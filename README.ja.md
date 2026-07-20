@@ -261,7 +261,17 @@ npm run validate:artifact
 - Deployment ID: `appgdep_6a5ccb2ec5448191be89c4fdd6b3c9bf`
 - 公開状態: `succeeded`
 
-主要なWeb HUD制作はChatGPT Sitesで実施しました。Sites制作チャットからはプロジェクト、保存版、Commit、Deploymentの識別情報を取得できましたが、Codex `/feedback` Session IDは取得できませんでした。現在、公式へ確認中であり、架空のIDは使いません。
+オリジナルのWeb HUDはChatGPT Sitesで制作・反復改善しました。Codexが元のSites UIの大部分を構築したものではありません。このCodexスレッドは、エクスポートされたソースの監査、完全性とシークレット処理の確認、依存関係のインストール、lint・テスト・本番ビルド、Git初期化、検証済みパッケージのコミット、およびGitHub公開に使用しました。
+
+### 検証済みCodex公開証跡
+
+- **Codex Session ID:** `019f7db6-7ced-7e60-b16f-2628031b0ef7`
+- **最終公開Commit SHA:** `33afd0ea912c41bb5f87aa4e50a8a1c242c5b08d`
+- **コミット済みファイル数:** `61`
+- **lint:** 通過
+- **テスト:** 8件通過、0件失敗
+- **本番ビルド:** 通過
+- **シークレットスキャン:** 通過
 
 ---
 
@@ -273,8 +283,9 @@ npm run validate:artifact
 - 既存／Build Week比較：準備済み
 - 英語応募本文：準備済み
 - デモ動画：準備中
-- GitHub公開用ソース一式：準備完了（lint・build・8テスト通過）
-- Codex Session ID：公式回答待ち
+- GitHub公開用ソース一式：公開完了（61ファイル、lint・本番build・8テスト・シークレットスキャン通過）
+- Codex Session ID：検証済み（`019f7db6-7ced-7e60-b16f-2628031b0ef7`）
+- GitHub公開Commit：検証済み（`33afd0ea912c41bb5f87aa4e50a8a1c242c5b08d`）
 
 ---
 

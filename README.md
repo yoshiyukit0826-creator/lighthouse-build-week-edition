@@ -319,7 +319,17 @@ The primary Build Week Web HUD was created and iterated in ChatGPT Sites.
 - **Deployment ID:** `appgdep_6a5ccb2ec5448191be89c4fdd6b3c9bf`
 - **Deployment status:** `succeeded`
 
-The Sites build thread exposes project, version, source commit, and deployment identifiers, but it does not expose a Codex `/feedback` Session ID. Official clarification has been requested, and no identifier will be fabricated.
+The original Web HUD was created and iterated in ChatGPT Sites. Codex did not build the majority of that original Sites UI. This Codex thread was used to audit the exported source, verify integrity and secret handling, install dependencies, run lint, tests, and the production build, initialize Git, commit the verified package, and publish it to GitHub.
+
+### Verified Codex publication evidence
+
+- **Codex Session ID:** `019f7db6-7ced-7e60-b16f-2628031b0ef7`
+- **Final publication commit SHA:** `33afd0ea912c41bb5f87aa4e50a8a1c242c5b08d`
+- **Committed files:** `61`
+- **Lint:** passed
+- **Tests:** 8 passed, 0 failed
+- **Production build:** passed
+- **Secret scan:** passed
 
 ---
 
@@ -363,7 +373,8 @@ The application source exported from ChatGPT Sites version 13 is included at the
 - English submission narrative: prepared
 - Demo video: in preparation
 - Public GitHub repository: published
-- Codex Session ID handling: awaiting official clarification
+- Codex Session ID: verified (`019f7db6-7ced-7e60-b16f-2628031b0ef7`)
+- GitHub publication evidence: verified (`33afd0ea912c41bb5f87aa4e50a8a1c242c5b08d`, 61 files)
 
 ---
 
