@@ -1,0 +1,30 @@
+{
+  "project": "Lighthouse — Build Week Edition",
+  "package_type": "GitHub-ready source package",
+  "created_for": "OpenAI Build Week 2026",
+  "source_export_included": true,
+  "source_export_filename": "Lighthouse-Build-Week-Edition-v13-original-source.zip",
+  "source_export_sha256": "f0d618fd063c3ff9c46a20b9645a2f6275491b463efb84ff5ed4cb563044aba7",
+  "site_id": "appgprj_6a5c143957bc81918fdd6ff56138d827",
+  "published_version": 13,
+  "checkpoint": "Mobile Action Focus Final v1",
+  "source_commit_sha": "26c61af276f6ddedcd80f78516cb9fb63e8eeebb",
+  "validation": {
+    "date_jst": "2026-07-20",
+    "node": "v22.16.0",
+    "npm": "10.9.2",
+    "lint": "passed",
+    "build": "passed",
+    "tests": {
+      "passed": 8,
+      "failed": 0
+    }
+  },
+  "excluded": [
+    "node_modules",
+    "generated caches",
+    "font binaries",
+    "build outputs",
+    "credentials"
+  ]
+}
