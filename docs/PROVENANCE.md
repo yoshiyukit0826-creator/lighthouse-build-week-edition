@@ -34,3 +34,13 @@ The original ChatGPT Sites build thread can expose the artifact identifiers abov
 The received export contains the version-13 project identity in `.openai/hosting.json`, the final `Mobile Action Focus Final v1` checkpoint in `BUILD_WEEK_CHANGELOG.md`, and the expected Lighthouse application files.
 
 The received ZIP hash does not match the platform-reported archive hash, so the two values are recorded separately. This can occur when an export is repackaged or regenerated. The repository does not claim that the received ZIP is byte-for-byte identical to the platform archive.
+
+## Post-export core hardening
+
+On 2026-07-21 JST, a Codex core-engineering session rebuilt and hardened the Build Week navigation core after the version-13 source export. The work introduced `app/navigation-engine.ts`, added pre-refactor characterization and engine behavioral tests, and wired the existing Adaptive Beacon and JUNCTION components to the tested engine.
+
+This later repository work did not create or redesign the original ChatGPT Sites UI. It preserved the visible product experience and added no runtime LLM inference, external API, credentials, raw logs, or private workplace data.
+
+- Branch: `codex/core-navigation-hardening`
+- Final core implementation commit SHA: `16cf48d92197f73ddba04c83da285642c7dc4f11`
+- Validation: 23 tests (3 characterization, 12 navigation-engine, 1 rendered HTML smoke, 7 source/CSS contracts)
