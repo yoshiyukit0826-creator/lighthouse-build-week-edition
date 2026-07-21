@@ -17,9 +17,11 @@ ARK did not act as an autonomous manager and Lighthouse does not claim that GPT-
 
 ## Codex disclosure
 
-The primary UI was built in ChatGPT Sites. The original Sites build thread currently exposes Site, version, source-commit, and deployment identifiers, but it does not expose a Codex `/feedback` Session ID.
+The primary UI was built in ChatGPT Sites. Codex did not build the majority of that original Sites UI. The original Sites build thread exposes Site, version, source-commit, and deployment identifiers; those remain separate from later repository work.
 
-This repository must document only verified Codex work. Do not describe a later test conversation as the primary build thread, and do not fabricate a Session ID. Add the official resolution and any concrete Codex tasks here once confirmed.
+After the version-13 source export, a core-engineering Codex session rebuilt the Build Week navigation core as a pure TypeScript engine, added characterization and behavioral tests, and wired the existing Adaptive Beacon and JUNCTION UI to that engine. This was a post-export implementation and hardening session, not the creation of the original ChatGPT Sites experience.
+
+The rebuilt engine deterministically produces CURRENT POSITION, NEXT STEP, and ALTERNATE ROUTE; applies Continue, Detour, and Decide Later as one-action corrections; enforces safety ceilings; and does not restore or rewrite past HP, SP, R/S/Y, Z, fog, trajectory, or logs. It adds no runtime LLM inference, external API, credentials, or private workplace data.
 
 ## Why this distinction matters
 
@@ -28,4 +30,4 @@ Lighthouse is built around faithful observation. Its submission record follows t
 
 ## Repository verification
 
-The exported Sites source was independently packaged and verified with `npm run lint` and `npm test`. This verification confirms that the source builds and that all eight included rendered-interface tests pass. It is recorded as repository validation, not falsely described as the original Codex build thread.
+The exported Sites source and rebuilt navigation core are independently verified with `npm run lint`, `npm test`, and `npm run validate:artifact`. The 23-test suite contains 3 characterization tests, 12 navigation-engine behavioral tests, 1 rendered HTML smoke test, and 7 source/CSS contract tests. This is repository and post-export core validation, not a claim that Codex built the original Sites UI.

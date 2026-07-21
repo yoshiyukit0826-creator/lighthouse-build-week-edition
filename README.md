@@ -124,6 +124,8 @@ Adaptive Beacon presents route candidates when the operator’s view has narrowe
 
 Its role is to make alternatives visible, not to choose on the operator’s behalf.
 
+After the version-13 source export, a Codex core-engineering session rebuilt this navigation logic as a deterministic pure TypeScript engine. The UI now renders the engine’s three route outputs and uses its tested safety ceiling and one-action JUNCTION correction; no runtime LLM or external API is involved.
+
 ### NAVIGATOR AA
 
 The navigator message is positioned near the top of the HUD so the current interpretation is visible before the operator reaches the action controls.
@@ -259,7 +261,7 @@ npm run lint
 npm test
 ```
 
-`npm test` performs the verified production build and runs the rendered-interface test suite. You can also validate the generated Sites artifact directly:
+`npm test` performs the verified production build and runs 23 tests: 3 pre-refactor characterization tests, 12 navigation-engine behavioral tests, 1 rendered HTML smoke test, and 7 source/CSS contract tests. You can also validate the generated Sites artifact directly:
 
 ```bash
 npm run validate:artifact
@@ -319,7 +321,7 @@ The primary Build Week Web HUD was created and iterated in ChatGPT Sites.
 - **Deployment ID:** `appgdep_6a5ccb2ec5448191be89c4fdd6b3c9bf`
 - **Deployment status:** `succeeded`
 
-The original Web HUD was created and iterated in ChatGPT Sites. Codex did not build the majority of that original Sites UI. This Codex thread was used to audit the exported source, verify integrity and secret handling, install dependencies, run lint, tests, and the production build, initialize Git, commit the verified package, and publish it to GitHub.
+The original Web HUD was created and iterated in ChatGPT Sites. Codex did not build the majority of that original Sites UI. An initial Codex publication session audited and published the exported source. A later core-engineering session rebuilt and hardened the Build Week navigation core after export, added characterization and behavioral tests, and wired the existing UI to the tested engine without redesigning it.
 
 ### Verified Codex publication evidence
 
@@ -342,7 +344,7 @@ public/                           Lighthouse and CUT-IN image assets
 worker/                           Sites/Cloudflare worker entry point
 build/                            Sites build integration
 scripts/                          Install, build, and artifact validation scripts
-tests/                            Rendered-interface behavior tests
+tests/                            Characterization, engine, rendered HTML, and source/CSS tests
 BUILD_WEEK_CHANGELOG.md           Checkpoint-by-checkpoint Build Week record
 README.md                         English project README
 README.ja.md                      Japanese reference translation
@@ -352,6 +354,7 @@ docs/BUILD_WEEK_SCOPE.md          Existing foundation vs. new work
 docs/TESTING_GUIDE.md             Judge testing path
 docs/PROVENANCE.md                Site/version/deployment evidence
 docs/CODEX_AND_GPT56.md           Transparent collaboration record
+docs/CODEX_CORE_SESSION.md        Post-export navigation-core engineering record
 docs/VALIDATION.md                Clean-package verification result
 docs/SOURCE_EXPORT.md             Export and sanitization record
 docs/DEMO_VIDEO_PLAN.md           Under-three-minute demo plan
@@ -367,7 +370,8 @@ The application source exported from ChatGPT Sites version 13 is included at the
 - Desktop and mobile interaction: complete
 - Original ChatGPT Sites source export: included
 - Clean source package: linted, built, and tested
-- Eight rendered-interface tests: passed
+- Navigation engine: deterministic pure TypeScript core wired to the existing UI
+- Test taxonomy: 3 characterization, 12 navigation-engine, 1 rendered HTML smoke, and 7 source/CSS contract tests
 - Existing Google Sheets evidence copy: prepared separately
 - Build Week comparison record: prepared
 - English submission narrative: prepared

@@ -3,12 +3,13 @@
 import { useEffect, useMemo, useState } from "react";
 import {
   makeRouteCorrection,
+  NAVIGATION_ROUTE_LABELS,
   ROUTE_LABELS,
   type BeaconSnapshot,
   type RouteChoice,
   type RouteCorrection,
-  type TrajectoryEntry,
-} from "./trajectory";
+} from "./navigation-engine";
+import type { TrajectoryEntry } from "./trajectory";
 
 const JUNCTION_MARKER_KEY = "navi-os-build-week:trajectory-junction:v1";
 const TRAJECTORY_LIMIT = 8;
@@ -247,11 +248,14 @@ function FlowLog({
 }
 
 function BeaconRoutes({ beacon }: { beacon: BeaconSnapshot }) {
+  const routes = [
+    { ...NAVIGATION_ROUTE_LABELS.currentPosition, text: beacon.position },
+    { ...NAVIGATION_ROUTE_LABELS.nextStep, text: beacon.nextStep },
+    { ...NAVIGATION_ROUTE_LABELS.alternateRoute, text: beacon.alternateRoute },
+  ];
   return (
     <div className="junction-routes">
-      <section><span>CURRENT POSITION</span><p>{beacon.position}</p></section>
-      <section><span>NEXT STEP</span><p>{beacon.nextStep}</p></section>
-      <section><span>ALTERNATE ROUTE</span><p>{beacon.alternateRoute}</p></section>
+      {routes.map((route) => <section key={route.label}><span>{route.label}</span><p>{route.text}</p></section>)}
     </div>
   );
 }

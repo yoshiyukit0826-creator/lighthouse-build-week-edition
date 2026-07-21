@@ -5,7 +5,7 @@ import test from "node:test";
 const developmentPreviewMeta =
   /<meta(?=[^>]*\bname=["']codex-preview["'])(?=[^>]*\bcontent=["']development["'])[^>]*>/i;
 
-test("renders development preview metadata, Adaptive Beacon, and Trajectory Junction controls", async () => {
+test("rendered HTML smoke: development metadata, Adaptive Beacon, and Trajectory Junction controls", async () => {
   const workerUrl = new URL("../dist/server/index.js", import.meta.url);
   workerUrl.searchParams.set("test", `${process.pid}-${Date.now()}`);
   const { default: worker } = await import(workerUrl.href);
@@ -44,11 +44,11 @@ test("renders development preview metadata, Adaptive Beacon, and Trajectory Junc
   assert.match(html, /現在の航行へ戻る/);
 });
 
-test("records a trajectory marker and a one-action Beacon correction without a state restoration path", async () => {
+test("source contract: records a trajectory marker and a one-action Beacon correction without a state restoration path", async () => {
   const panelSource = await readFile(new URL("../app/junction-panel.tsx", import.meta.url), "utf8");
   const pageSource = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
   const beaconSource = await readFile(new URL("../app/adaptive-beacon.tsx", import.meta.url), "utf8");
-  const trajectorySource = await readFile(new URL("../app/trajectory.ts", import.meta.url), "utf8");
+  const engineSource = await readFile(new URL("../app/navigation-engine.ts", import.meta.url), "utf8");
   assert.match(panelSource, /流れが変わった可能性があります。少し見渡しますか？/);
   assert.match(panelSource, /TrajectoryChart/);
   assert.match(panelSource, /hpDelta/);
@@ -57,21 +57,23 @@ test("records a trajectory marker and a one-action Beacon correction without a s
   assert.match(panelSource, /cutIns/);
   assert.match(panelSource, /短いメモ/);
   assert.match(panelSource, /MARK JUNCTION/);
-  assert.match(trajectorySource, /このまま進む/);
-  assert.match(trajectorySource, /迂回する/);
-  assert.match(trajectorySource, /今は決めない/);
+  assert.match(engineSource, /このまま進む/);
+  assert.match(engineSource, /迂回する/);
+  assert.match(engineSource, /今は決めない/);
   assert.match(panelSource, /BASE ROUTE/);
   assert.match(panelSource, /NEXT GUIDANCE/);
   assert.match(panelSource, /その後のアクション結果/);
   assert.match(panelSource, /過去のHP・SP・RSY・Z・霧・Beaconへ戻しません/);
   assert.match(beaconSource, /JUNCTION ROUTE \/ TEMPORARY/);
-  assert.match(beaconSource, /もう少し状況を見ます/);
-  assert.match(pageSource, /setRouteCorrection\(null\)/);
+  assert.match(beaconSource, /generateNavigation/);
+  assert.match(engineSource, /もう少し状況を見ます/);
+  assert.match(pageSource, /consumeRouteCorrection/);
   assert.doesNotMatch(panelSource, /onResume|resumeFromSnapshot|SAVE JUNCTION|RESUME POINT/);
   assert.doesNotMatch(pageSource, /resumeJunction|JunctionSnapshot|onResume=/);
+  assert.doesNotMatch(engineSource, /resumeFromSnapshot|restoreTrajectory|rewriteTrajectory/);
 });
 
-test("renders trajectory entries as readable cards with Beacon and JUNCTION markers", async () => {
+test("source/CSS contract: renders trajectory entries as readable cards with Beacon and JUNCTION markers", async () => {
   const panelSource = await readFile(new URL("../app/junction-panel.tsx", import.meta.url), "utf8");
   const cssSource = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
 
@@ -85,7 +87,7 @@ test("renders trajectory entries as readable cards with Beacon and JUNCTION mark
   assert.match(cssSource, /word-break: normal/);
 });
 
-test("keeps the three-way action input fixed and returns attention to the HP ring", async () => {
+test("source/CSS contract: keeps the three-way action input fixed and returns attention to the HP ring", async () => {
   const pageSource = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
   const cssSource = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
 
@@ -104,7 +106,7 @@ test("keeps the three-way action input fixed and returns attention to the HP rin
   assert.match(cssSource, /@media \(max-width: 780px\)[\s\S]*\.action-dock \{[^}]*width: auto;[^}]*transform: none;/);
 });
 
-test("uses ring-local feedback and auto-dismissing non-modal cut-in ribbons", async () => {
+test("source/CSS contract: uses ring-local feedback and auto-dismissing non-modal cut-in ribbons", async () => {
   const pageSource = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
   const cssSource = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
 
@@ -126,7 +128,7 @@ test("uses ring-local feedback and auto-dismissing non-modal cut-in ribbons", as
   assert.doesNotMatch(cssSource, /\.cutin \{ position: fixed;[^}]*inset: 0/);
 });
 
-test("promotes the single Navigator and compacts existing environment readings into the lighthouse", async () => {
+test("source/CSS contract: promotes the single Navigator and compacts existing environment readings into the lighthouse", async () => {
   const pageSource = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
   const cssSource = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
 
@@ -146,7 +148,7 @@ test("promotes the single Navigator and compacts existing environment readings i
   assert.match(cssSource, /@media \(prefers-reduced-motion: reduce\)/);
 });
 
-test("renders the normal HUD trajectory as aligned HP current, HP delta, and SP tracks", async () => {
+test("source/CSS contract: renders the normal HUD trajectory as aligned HP current, HP delta, and SP tracks", async () => {
   const pageSource = await readFile(new URL("../app/page.tsx", import.meta.url), "utf8");
   const chartSource = await readFile(new URL("../app/hud-trajectory-chart.tsx", import.meta.url), "utf8");
   const cssSource = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
@@ -166,7 +168,7 @@ test("renders the normal HUD trajectory as aligned HP current, HP delta, and SP 
   assert.doesNotMatch(chartSource, /chart\.js|recharts|d3|setInterval|fetch\(/i);
 });
 
-test("compresses only the narrow-phone capability stack without changing the fixed action dock", async () => {
+test("source/CSS contract: compresses only the narrow-phone capability stack without changing the fixed action dock", async () => {
   const cssSource = await readFile(new URL("../app/globals.css", import.meta.url), "utf8");
   const phoneBlock = cssSource.match(/@media \(max-width: 440px\) \{([\s\S]*?)\n\}/)?.[1] ?? "";
 

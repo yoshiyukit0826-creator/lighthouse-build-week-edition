@@ -1,10 +1,15 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import AdaptiveBeacon, { readAdaptiveBeacon } from "./adaptive-beacon";
+import AdaptiveBeacon from "./adaptive-beacon";
 import HudTrajectoryChart from "./hud-trajectory-chart";
 import JunctionPanel from "./junction-panel";
-import type { RouteCorrection, TrajectoryEntry } from "./trajectory";
+import {
+  consumeRouteCorrection,
+  readAdaptiveBeacon,
+  type RouteCorrection,
+} from "./navigation-engine";
+import type { TrajectoryEntry } from "./trajectory";
 
 type ActionKind = "recover" | "damage" | "stock";
 
@@ -294,7 +299,7 @@ export default function Home() {
       };
       return [...current.slice(-9), entry];
     });
-    setRouteCorrection(null);
+    setRouteCorrection((current) => consumeRouteCorrection(current, id).pendingCorrection);
   }
 
   function register(action: NavAction) {

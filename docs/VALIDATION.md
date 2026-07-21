@@ -1,13 +1,13 @@
 # Validation Record
 
-Validation date: **2026-07-20 JST**
+Validation date: **2026-07-21 JST**
 
 Validated from the clean GitHub-ready source package with generated caches and dependency directories excluded.
 
 ## Environment
 
-- Node.js: `v22.16.0`
-- npm: `10.9.2`
+- Node.js: `v24.18.0`
+- npm: `11.16.0`
 
 ## Commands and results
 
@@ -15,6 +15,7 @@ Validated from the clean GitHub-ready source package with generated caches and d
 npm ci
 npm run lint
 npm test
+npm run validate:artifact
 ```
 
 Results:
@@ -23,9 +24,14 @@ Results:
 - ESLint: passed;
 - verified vinext production build: passed;
 - Sites artifact validation: passed;
-- rendered-interface tests: **8 passed, 0 failed**.
+- tests: **23 passed, 0 failed**.
 
-The tests cover Adaptive Beacon, JUNCTION behavior, no-restoration guarantees, readable trajectory cards, fixed mobile actions, ring-local feedback, NAVIGATOR placement, HP/SP trajectory tracks, and narrow-phone layout behavior.
+Test taxonomy:
+
+- **3 characterization tests** preserve representative pre-refactor Adaptive Beacon and JUNCTION behavior;
+- **12 navigation-engine behavioral tests** cover determinism, exactly three routes, representative state classes, all three JUNCTION choices, one-action consumption, safety ceilings, input immutability, trajectory non-restoration, absence of resume paths, and required labels;
+- **1 rendered HTML smoke test** verifies the built worker response and core visible controls;
+- **7 source/CSS contract tests** cover JUNCTION persistence contracts, trajectory cards, fixed mobile actions, ring feedback, NAVIGATOR placement, HP/SP tracks, and narrow-phone layout.
 
 ## Packaging exclusions
 
