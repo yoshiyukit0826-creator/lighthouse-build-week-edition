@@ -4,10 +4,50 @@
 
 Lighthouse is a responsive personal navigation HUD for moments when unfinished work, preparation gaps, unexpected events, and limited capacity make the next decision difficult.
 
-It does not manage people or prescribe a single correct answer. It reflects the operator’s current state, preserves the trajectory of recent actions, and illuminates possible next routes while leaving the final decision to the person.
+It does not manage people, continuously interrupt them, or prescribe one correct answer. It reflects the operator’s current state, preserves the trajectory of recent actions, and illuminates possible next routes while leaving the final decision to the person.
 
 **Live demo:** https://lighthouse-build-week.yoshiyuki-t-0826.chatgpt.site  
-**Source repository:** https://github.com/yoshiyukit0826-creator/lighthouse-build-week-edition
+**Demo video:** https://youtu.be/BaHCZXbj8D0  
+**Source repository:** https://github.com/yoshiyukit0826-creator/lighthouse-build-week-edition  
+**Japanese reference:** [README.ja.md](README.ja.md)
+
+---
+
+## The Core Idea
+
+Lighthouse is not an autonomous agent waiting to take control.
+
+A lighthouse does not steer the ship. It stays quiet during ordinary navigation and becomes useful when the operator needs to recover orientation, inspect the route already taken, or find another way forward.
+
+That is why Lighthouse is intentionally calm:
+
+- it does not demand constant attention;
+- it records actions without turning every action into a notification;
+- it allows the operator to open the trajectory when reflection becomes useful;
+- it illuminates multiple routes rather than issuing a command;
+- it leaves meaning, timing, and final judgment with the human.
+
+**The absence of a runtime LLM call is not the absence of AI contribution.** The public HUD is the executable result of a longer human–AI co-design process, made deterministic so judges can reproduce its behavior safely without private workplace data, credentials, or API keys.
+
+---
+
+## How Lighthouse Evolved with GPT
+
+Lighthouse did not begin as a one-week prompt-to-app exercise.
+
+Its operational foundation began before Build Week as a Google Sheets navigation system developed through repeated field use and collaboration with earlier GPT model generations. The operator brought real operational language, constraints, mistakes, recovery behavior, and daily observations. The AI collaboration helped turn those observations into reusable concepts such as R/S/Y, NS, HP, SP, time decay, operating bands, and action logs.
+
+During Build Week, **GPT-5.6 — called ARK in this project — became the co-designer that helped move the system into its next generation**. GPT-5.6 was used to compare the pre-existing system with real-world evidence, preserve continuity across many design decisions, challenge contradictions, and consolidate previously separate ideas into one public navigation model:
+
+- **Adaptive Beacon** — multiple possible routes instead of one prescribed answer;
+- **Trajectory Review** — recent actions become a visible route rather than a passive log;
+- **LOG PAUSE / LAST 8** — pause the visual flow to reflect without stopping or rewriting recording;
+- **JUNCTION** — mark a meaningful turning point and choose Continue, Detour, or Decide Later;
+- **responsive Web HUD** — translate a private Sheets workflow into a reproducible desktop/mobile experience.
+
+This is the central evidence of GPT-5.6 use: it was not added as a decorative runtime API badge. It served as the reasoning, continuity, and translation layer that enabled an operating system built with earlier GPT generations to become the Build Week Lighthouse experience.
+
+Codex then audited the exported source, checked integrity and secret handling, installed dependencies, ran lint, tests, and the production build, initialized Git, committed the verified package, and published it to GitHub.
 
 ---
 
@@ -45,7 +85,7 @@ When pressure rises, people often try to hold everything in their head at once:
 - How much capacity is actually left?
 - Should I continue, detour, or wait before deciding?
 
-That makes the first decision more emotional and less observable.
+That makes the next decision more emotional and less observable.
 
 Lighthouse creates a shared visual language for current capacity, future reserve, operational weather, and trajectory. Its purpose is not to replace judgment. Its purpose is to restore visibility before judgment is made.
 
@@ -63,11 +103,13 @@ The operator begins the day by entering three observations:
 
 These values form the initial navigation state for the day.
 
+### NS — Initial Navigation State
+
+NS is the combined morning state derived from R, S, and Y. It determines the initial operating band and starting HP.
+
 ### HP — Current Operating Capacity
 
 HP represents the operator’s current ability to continue operating effectively. It is not a medical measurement.
-
-The pre-existing calculation core uses:
 
 ```text
 Current HP =
@@ -132,7 +174,7 @@ A retrospective analysis of the pre-existing Google Sheets action log covered **
 
 ![Monthly action-log trend](assets/evidence/real-world-log-trend.svg)
 
-From March to May, recorded negative operational events per active logging day decreased by **74.8%**. The more conservative April-to-May comparison still shows a **50.6%** decrease, while recovery-event logging remained essentially stable at **10.5 to 10.3 events per active day**.
+From March to May, **recorded negative operational events per active logging day decreased by 74.8%**. The more conservative April-to-May comparison still shows a **50.6% decrease**, while recovery-event logging remained essentially stable at **10.5 to 10.3 events per active day**.
 
 This is **not** presented as a causal productivity claim. The dataset covers one operator and is not connected here to production volume, cycle time, overtime, or defect data. It is narrower longitudinal evidence that recorded operational friction decreased while recovery behavior continued to be observed.
 
@@ -160,6 +202,8 @@ The action board remains available on desktop and mobile, allowing the operator 
 ### Ring Feedback and CUT-IN
 
 HP changes are translated into immediate visual feedback. Important events can appear as CUT-IN moments so meaningful changes are not lost inside a passive log.
+
+CUT-IN is event-driven, not a constant notification stream. The operator can otherwise leave Lighthouse quietly in the background.
 
 ### Trajectory Review
 
@@ -190,31 +234,24 @@ The Build Week edition is designed for desktop and smartphone browsers. It is a 
 | Trajectory | Action log and HP graph | Trajectory Review, LOG PAUSE, LAST 8, CUT-IN and JUNCTION markers |
 | Turning points | Not present | JUNCTION choice and temporary reflection into the next guidance |
 | Interface | Google Sheets HUD | Public desktop/mobile Lighthouse Web HUD |
+| AI collaboration | Earlier GPT generations helped formalize the operational model | GPT-5.6 consolidated the accumulated model into the Build Week navigation experience |
 
 The public Build Week site is not connected to the Google Sheets backend in real time. It uses a controlled standalone state so judges can reproduce the interaction reliably. Real-time operational time decay is therefore paused in the public demo.
 
 ---
 
-## ARK — The GPT-5.6 Co-Designer
+## Why the Public Demo Is Deterministic
 
-**ARK** is the working name given to the GPT-5.6 collaborator used throughout this project.
+A real-time GPT-5.6 API call was deliberately not made a dependency of the public judging path.
 
-ARK was not treated as an autonomous manager or an oracle that decides the optimal route. It acted as a co-designer, navigator, and continuity layer.
+This choice provides four benefits:
 
-The human operator contributed lived field experience, operational language, constraints, values, and final judgment. ARK helped:
+1. **Reproducibility:** every judge can observe the same state transitions.
+2. **Privacy:** no private workplace logs, credentials, or personal context leave the operational system.
+3. **Reliability:** the demo works without API keys, quota, network inference latency, or model-output variance.
+4. **Human authority:** the navigation model remains a quiet decision-support layer rather than an autonomous manager.
 
-- turn repeated field experience into system concepts;
-- compare existing behavior with Build Week additions;
-- structure HP, SP, trajectory, Beacon, and JUNCTION as one navigation model;
-- refine interaction design and interface language;
-- challenge contradictions and preserve design principles across iterations;
-- analyze longitudinal action-log patterns;
-- translate a personal operating method into a public, testable Web HUD.
-
-This collaboration mirrors the philosophy of Lighthouse itself:
-
-> AI can help preserve context, reveal patterns, and illuminate routes.  
-> The human remains responsible for meaning, turning points, and the final decision.
+A future connected version may use an LLM to personalize language or interpret additional context. The Build Week edition demonstrates the core navigation interaction itself: reflection, reserve, trajectory, and human-controlled route selection.
 
 ---
 
@@ -307,7 +344,8 @@ No login is required.
 2. **Present routes instead of forcing one answer.**
 3. **Preserve the past instead of rewriting it.**
 4. **Keep the final decision with the operator.**
-5. **Grow through repeated use and shared observation.**
+5. **Stay quiet until orientation is useful.**
+6. **Grow through repeated human–AI observation.**
 
 ---
 
@@ -365,6 +403,7 @@ assets/evidence/                  Aggregate real-world evidence chart
 docs/REAL_WORLD_EVIDENCE.md       Methodology and longitudinal findings
 docs/data/                        Anonymized aggregate evidence data
 docs/DEVPOST_IMPACT_UPDATE.md     Paste-ready impact language
+docs/DEVPOST_FINAL_COPY.md        Paste-ready final submission language
 docs/ARCHITECTURE.md              Existing and Build Week architecture
 docs/BUILD_WEEK_SCOPE.md          Existing foundation vs. new work
 docs/TESTING_GUIDE.md             Judge testing path
