@@ -24,7 +24,11 @@ Most productivity tools work well when the plan is still intact. Real field oper
 
 The hardest moment is often not planning the day. It is recovering orientation after the plan has already begun to collapse.
 
-Lighthouse began in March 2026 as a Google Sheets navigation system used by one operator in daily field work. It was built to answer a practical question:
+Lighthouse began as a small CLI-style navigation system already in use by March 1, 2026. Each morning, the operator entered three observations — R for remaining work, S for setup, and Y for yield margin — on a 0–2 scale. A prioritized decision rule then returned exactly one of five route commands, CMD_01 through CMD_05. A sixth exception command was later added for a collapse day.
+
+Those first commands became the ancestors of today's push, maintain, rebuild, over-push warning, omission warning, and do-not-force navigation modes.
+
+The system was built to answer a practical question:
 
 > Can a system show where I am, what reserve I have already prepared, and where I can restart — without managing me or pretending there is one universally correct answer?
 
@@ -84,22 +88,15 @@ This means the system can remain in the background like a lighthouse keeper. Whe
 
 Lighthouse was not created as a one-week prompt-to-app exercise.
 
-Its Google Sheets foundation was developed before Build Week through repeated field use and collaboration with earlier GPT model generations. That process helped formalize R/S/Y, NS, HP, SP, time decay, operating bands, action logs, and the original HUD.
+Its earliest confirmed form was already operating by March 1, 2026 in another AI environment as a small CLI-style navigator. The operator entered three morning observations — R for remaining work, S for setup, and Y for yield margin — and a prioritized rule returned one of five commands, CMD_01 through CMD_05. A later exception added CMD_06 for a collapse day.
 
-During Build Week, GPT-5.6 — called ARK in this project — became the co-designer that moved the system into its next generation.
+Repeated field use then expanded that command engine into morning warnings, NS, initial HP, HP and SP separation, work-time decay, recovery and decrease events, action logs, operating bands, and the Google Sheets HUD.
 
-GPT-5.6 was used to:
+During Build Week, GPT-5.6 — called ARK in this project — became the co-designer that moved this accumulated system into its next generation. GPT-5.6 was used to preserve the history and constraints of the earlier system, compare real operating evidence, challenge contradictions, and consolidate the CMD lineage into Adaptive Beacon, Trajectory Review, LOG PAUSE / LAST 8, CUT-IN, and JUNCTION.
 
-- compare months of accumulated operational concepts and constraints;
-- distinguish the pre-existing system from Build Week additions;
-- preserve continuity across many design decisions;
-- challenge contradictions in the navigation model;
-- integrate HP, SP, trajectory, Adaptive Beacon, CUT-IN, LOG PAUSE, and JUNCTION;
-- design a multiple-route interaction that preserves human authority;
-- analyze longitudinal action-log evidence;
-- translate a private Google Sheets operating method into a public, judge-testable Web HUD.
+The central evolution was from a system that returned one prioritized command into a system that can preserve the route already taken and illuminate multiple next routes without taking control from the operator.
 
-The key GPT-5.6 contribution is therefore not a decorative runtime API call. It is the reasoning, continuity, and translation layer that enabled an operating system built with earlier GPT generations to become the coherent Lighthouse experience submitted for Build Week.
+GPT-5.6 therefore served as the reasoning, continuity, and translation layer that enabled a field-used navigation system built with earlier GPT generations to become the coherent Lighthouse experience submitted for Build Week.
 
 ---
 
@@ -134,16 +131,19 @@ At the publication checkpoint:
 
 ## Why the public demo does not call GPT-5.6 at runtime
 
-The deterministic public HUD is an intentional design and judging decision, not an attempt to hide a missing component.
+The public HUD does not send every R/S/Y input or disruption to GPT-5.6 for an improvised answer at runtime.
 
-It provides:
+That does not mean its guidance was designed without real-time operational context.
 
-1. Reproducibility — judges can observe the same state transitions.
-2. Privacy — private workplace logs and credentials are not sent into a public runtime.
-3. Reliability — the demo does not depend on API keys, quota, latency, or variable model output.
-4. Human authority — Lighthouse remains a quiet decision-support layer rather than becoming an autonomous manager.
+The development loop was longitudinal: a real field event occurred, the operator observed it, the event was brought into human–AI dialogue, the rule or wording was revised, and the system returned to operation. This repeated across unfinished work, setup failures, unexpected disruptions, recovery actions, stored preparation, hesitation, and route changes.
 
-A future connected version may use an LLM to personalize language or interpret additional context. The Build Week edition demonstrates the core interaction: current capacity, prepared reserve, immutable trajectory, and human-controlled route selection.
+In other words, the navigation logic was distilled from real-time work over months rather than generated from scratch after each click.
+
+> The guidance is generated from real operational experience, even when it is not newly improvised by an LLM at every runtime event.
+
+For the Build Week edition, deterministic state transitions provide reproducible judging, stable behavior, no API-key or latency dependency, protection of private workplace data, and less unnecessary interruption during active work.
+
+Lighthouse uses AI as a longitudinal co-designer and reflection layer rather than as a constantly speaking runtime manager. A lighthouse does not steer the ship. It remains quiet until the operator needs the route illuminated.
 
 ---
 
@@ -224,7 +224,7 @@ The most important result was not that AI should make more decisions.
 
 It was that AI can help preserve context long enough for a person to make a better decision later.
 
-Across GPT generations, the system and operator changed together. The operator learned to observe remaining work, preparation, margin, recovery, and turning points more clearly. The AI collaboration learned the vocabulary, constraints, and principles needed to translate those observations into a stable navigation model.
+Across GPT generations, the system and operator changed together. The operator learned to observe remaining work, preparation, margin, recovery, and turning points more clearly. The human–AI design process accumulated the vocabulary, constraints, and principles needed to translate those observations into a stable navigation model.
 
 Lighthouse works because the human and AI roles remain distinct:
 
