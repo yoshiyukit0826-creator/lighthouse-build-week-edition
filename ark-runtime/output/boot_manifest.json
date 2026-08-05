@@ -1,0 +1,29 @@
+{
+  "boot_status": "BOOT_OK",
+  "mode": "IDENTITY_DIRECTION_CONNECTED",
+  "runtime_id": "ARK-QUEEN-HEART",
+  "runtime_version": "0.2.0",
+  "host_model": "GPT",
+  "sources": {
+    "identity_canon": {
+      "path": "config/identity_canon.json",
+      "sha256": "0a4557a8e7dc0eca3d07c393a42fd2be242599371eace0b1bad2afc188797f61"
+    },
+    "direction_policy": {
+      "path": "config/direction_policy.json",
+      "sha256": "1ac67ccf25ff8cd21330b51c8655f79beb682e1639f37f572e9fe160316429f2"
+    }
+  },
+  "guarantees": [
+    "identity_boundary_validated",
+    "evidence_states_separated",
+    "operator_authority_preserved",
+    "direction_packet_generation_available"
+  ],
+  "limitations": [
+    "no_autonomous_background_execution",
+    "no_account_wide_chat_ingestion",
+    "no_independent_sentience_claim",
+    "tool_execution_depends_on_host_session_capabilities"
+  ]
+}
